@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}">
+</head>
+<body>
+    <h2>Menu Bar</h2>
+    <ul>
+        <li><a href="{{url_for('home')}}">Home</a></li>
+        <li><a href="{{url_for('display')}}">Display</a></li>
+        <li class="active"><a href="{{url_for('update')}}">Update</a></li>
+        <li><a href="{{url_for('logout')}}">Logout</a></li>
+    </ul>
+    <div class="center">
+        <h1>Fill your detailes to update:</h1>
+        <form action="" method="post">
+            <input class="input" type="text" name="username" placeholder="Enter your username" required><br><br>
+        <input class="input" type="password" name="password" placeholder="Enter your password" required><br><br>
+        <input class="input" type="email" name="email" placeholder="Enter your email" required><br><br>
+        <input class="input" type="text" name="address" placeholder="Enter your address" required><br><br>
+        <input class="input" type="text" name="city" placeholder="Enter your city" required><br><br>
+        <input class="input" type="text" name="state" placeholder="Enter your state" required><br><br>
+        <input class="input" type="text" name="country" placeholder="Enter your country" required><br><br>
+        <input class="input" type="submit" name="submit">
+        </form>
+    </div>
+</body>
+</html>

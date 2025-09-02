@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Display</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='css/style.css')}}">
+</head>
+
+<body>
+    <h2>Menu Bar</h2>
+    <ul>
+        <li><a href="{{url_for('home')}}">Home</a></li>
+        <li class="active"><a href="{{url_for('display')}}">Display</a></li>
+        <li><a href="{{url_for('update')}}">Update</a></li>
+        <li><a href="{{url_for('logout')}}">Logout</a></li>
+    </ul>
+    <div class="center">
+        <h1>Your detailes:</h1>
+        <table><br><br><br><br>
+            <tr>
+                <td>Username:</td>
+                <td>{{account['username']}}</td>
+            </tr>
+            <tr>
+                <td>Password:</td>
+                <td> {{account['password']}} </td>
+            </tr>
+            <tr>
+                <td>Email ID:</td>
+                <td> {{account['email']}} </td>
+            </tr>
+            <tr>
+                <td>Address:</td>
+                <td> {{account['address']}} </td>
+            </tr>
+            <tr>
+                <td>City:</td>
+                <td> {{account['city']}} </td>
+            </tr>
+            <tr>
+                <td>State:</td>
+                <td> {{account['state']}} </td>
+            </tr>
+            <tr>
+                <td>Country:</td>
+                <td> {{account['country']}} </td>
+            </tr>
+        </table>
+    </div>
+</body>
+
+</html>

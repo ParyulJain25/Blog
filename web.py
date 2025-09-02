@@ -1,3 +1,4 @@
+import utils.session
 from flask import *
 from flask_mysqldb import MySQL
 import MySQLdb
