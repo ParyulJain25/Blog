@@ -57,6 +57,9 @@ def reg():
         else:
             cursor.execute('INSERT INTO accounts (username,password,email,address,city,state,country) VALUES(%s,%s,%s,%s,%s,%s,%s)',(username,password,email,address,city,state,country))
             mysql.connection.commit()
+            # session['loggedin'] = True
+            # session['id'] = cursor.lastrowid
+            # session['username'] = username
             cursor.close()
             msg='You have successfully registered !'
             return render_template('home.html',msg=msg)
@@ -72,7 +75,7 @@ def logout():
 @web.route('/upload')
 def up_display():
     return render_template('upload.html')
-@web.route('/up')
+@web.route('/up', methods=['GET', 'POST'])
 def fetch_up():
     msg=''
     if request.method=='POST' and 'title' in request.form and 'blog' in request.form:
@@ -84,7 +87,7 @@ def fetch_up():
         if account:
             msg='Title already exists !'
         else:
-            cursor.execute('INSERT INTO web_blog VALUES(%s,%s)',(title,blog, ))
+            cursor.execute('INSERT INTO web_blog (title, blog) VALUES(%s,%s)',(title,blog, ))
             mysql.connection.commit()
             msg='Your blog has been successfully uploaded !'
             return render_template('home.html',msg=msg)
@@ -95,7 +98,7 @@ def fetch_up():
 def display():
     if 'loggedin' in session:
         cursor=mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-        cursor.execute('SELECT * FROM accounts WHERE id=%s',(session['id']))
+        cursor.execute('SELECT * FROM accounts WHERE id=%s',(session['id'], ))
         account=cursor.fetchone()
         return render_template('display.html',account=account)
     return redirect(url_for('login'))
@@ -111,7 +114,7 @@ def update():
             state = request.form['state']
             country = request.form['country']
             cursor = mysql.connection.cursor(MySQLdb.cursors.DictCursor)
-            cursor.execute('SELECT * FROM accounts WHERE username=%s',(username))
+            cursor.execute('SELECT * FROM accounts WHERE username=%s',(username, ))
             account=cursor.fetchone()
             if account:
                 msg='Account already exists !'
@@ -120,13 +123,13 @@ def update():
             elif not re.match(r'[A-Za-z0-9]+',username):
                 msg='name must contain only characters and numbers !'
             else:
-                cursor.execute('UPDATE accounts SET username =% s,\
-                password =% s, email =% s, \
-                address =% s, city =% s, state =% s, \
-                country =% s WHERE id =% s', (
+                cursor.execute('UPDATE accounts SET username=%s,\
+                password=%s, email=%s, \
+                address=%s, city=%s, state=%s, \
+                country=%s WHERE id=%s', (
                   username, password, email, 
                  address, city, state, country, 
-                 (session['id'], ), ))
+                 session['id'], ))
                 mysql.connection.commit()
                 msg = 'You have successfully updated !'
                 return render_template('home.html',msg=msg)
